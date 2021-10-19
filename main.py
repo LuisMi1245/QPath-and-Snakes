@@ -8,6 +8,7 @@ color_white = 255, 255, 255 #Color del fondo de la ventana en RGB
 color_red = 255, 0, 0 
 color_green = 0, 217, 94
 color_orange = 252, 186, 3
+color_purple =  140, 3, 252
 
 #Título de la ventana
 pygame.display.set_caption("QPath & Snakes")
@@ -24,10 +25,14 @@ while True:
     
 
     #Borra la pantalla y la pinta de blanco en cada frame
+    
     screen.fill(color_white)
-    head.fill(color_red)
-    body.fill(color_green)
-    footer.fill(color_orange)
+   
+    head.blit(text, (15*bloque,0.6*bloque))
+    body_tablero.fill(color_red)
+    body_info.fill(color_purple)
+    foot_circuit.fill(color_orange)
+    foot_buttons.fill(color_green)
 
     #pygame.draw.circle(surface, color, centro, radio, ancho_borde)
     pygame.draw.circle(screen, color_red, (posx+ 0.5*bloque, posy+ 0.5*bloque), bloque*0.5),
