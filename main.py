@@ -5,10 +5,13 @@ from components import *
 
 def jugar(): 
     print("hola")
-    foot_buttons = pygame.Surface.subsurface(footer, (0, 0, 32*bloque, 8*bloque))
-    #button(foot_buttons, 2*bloque, 2*bloque, 12*bloque, 4*bloque, color_snake_complement, "Superponer Dado", 43, color_white, action=None)
+    global menu_state
+    menu_state = 1
 
 def salir(): sys.exit()
+
+def superponer_dado():
+    print("Definan esta función")
 
 #Inicializa los módulos de pygame
 pygame.init()
@@ -24,7 +27,10 @@ color_snake_complement = np.array((165, 39, 19))
 color_black = np.array((0, 0, 0))
 
 #Título de la ventana
-pygame.display.set_caption("QPath & Snakes")
+pygame.display.set_caption("QPath & Snakes v0.1")
+
+#Variable Global que controla el estado del menú
+menu_state = 0
 
 posx = 2*bloque
 posy = 19*bloque
@@ -47,9 +53,11 @@ while True:
     foot_circuit.fill(color_snake)
     foot_buttons.fill(color_snake)
 
-    button(foot_buttons, 2*bloque, 2*bloque, 5*bloque, 4*bloque, color_snake_complement, "Juega", 43, color_white, action=jugar)
-    button(foot_buttons, 9*bloque, 2*bloque, 5*bloque, 4*bloque, color_snake_complement, "Salir", 43, color_white, action=salir)
-    
+    if menu_state == 0:
+        button(foot_buttons, 2*bloque, 2*bloque, 5*bloque, 4*bloque, color_snake_complement, "Juega", 43, color_white, action=jugar)
+        button(foot_buttons, 9*bloque, 2*bloque, 5*bloque, 4*bloque, color_snake_complement, "Salir", 43, color_white, action=salir)
+    elif menu_state == 1:
+        button(foot_buttons, 2*bloque, 2*bloque, 12*bloque, 4*bloque, color_snake_complement, "Superponer Dado", 43, color_white, action=superponer_dado())
 
     #pygame.draw.circle(surface, color, centro, radio, ancho_borde)
     #pygame.draw.circle(screen, color_red, (posx+ 0.5*bloque, posy+ 0.5*bloque), bloque*0.5),
