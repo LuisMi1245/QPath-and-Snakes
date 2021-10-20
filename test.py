@@ -4,3 +4,7 @@
 #player = [pygame.image.load("assets/img/einstein.jpg"), pygame.image.load("assets/img/newton.jpg")]
 #player[0] = pygame.transform.scale(player[0], (60,150))
 #rect = [player[0].get_rect(), player[1].get_rect()] 
+
+
+   #Se dibuja un objeto (object) en la superficie con un collider (rect_object)
+    #screen.blit(object, rect_object)

@@ -1,9 +1,14 @@
 import pygame
-from pygame import color 
+
+from components import text_objects 
 pygame.font.init()
 
 #Defino una unidad de medida fija de 21px
 bloque = 21
+
+#Rutas de fuentes
+font_path_1 = "assets/fonts/RampartOne-Regular.ttf"
+font_path_2 = "assets/fonts/Woodstamp.otf"
 
 #Dibujo toda la interfaz
 
@@ -17,9 +22,10 @@ head = pygame.Surface.subsurface(screen, (0,0, 48*bloque, 3*bloque))
 body = pygame.Surface.subsurface(screen, (0,3*bloque, 48*bloque, 20*bloque))
 footer = pygame.Surface.subsurface(screen, (0, 23*bloque, 48*bloque, 8*bloque))
 
-#head
-head_font = pygame.font.SysFont('Comic Sans MS',66) 
-text = head_font.render('QPath & Snakes', True, (0,0,0))
+#Se generan superficies hijas de 2 nivel
+
+#head 
+head_text, head_text_rect = text_objects("QPath & Snakes", 40, font_path_1)
 
 #body
 body_tablero = pygame.Surface.subsurface(body, (0,0, 32*bloque, 20*bloque)) 
