@@ -2,6 +2,8 @@ import sys, pygame
 import numpy as np
 from surfaces import *
 from components import *
+from circuit import *
+#from plot_qc import *
 
 def jugar(): 
     print("hola")
@@ -35,6 +37,19 @@ menu_state = 0
 posx = 2*bloque
 posy = 19*bloque
 
+#Circuito imagen
+iniciar_circuito = StartCircuit()
+AssembleCircuit(iniciar_circuito, 'Rx')
+DrawCircuit(iniciar_circuito,1)
+img_circuit = pygame.image.load("__stored_img__/circuit.png")
+
+#Grafico
+#plot_qc(iniciar_circuito)
+
+#img_plot = pygame.image.load("__stored_img__/plot_qcc.png")
+
+#imagen = pygame.image.load("assets/img/einstein.jpg")
+
 #Ciclo que mantiene la ejecución del juego
 while True:
 
@@ -46,12 +61,17 @@ while True:
 
     #Borra la pantalla y la pinta de blanco en cada frame
     screen.fill(color_white)
-   
+    
     head.blit(head_text, (16*bloque,0))
+
+    #body_info.blit(imagen, (2*bloque, 2*bloque))
     #body_tablero.fill(color_red)
     #body_info.fill(color_purple)
     foot_circuit.fill(color_snake)
     foot_buttons.fill(color_snake)
+    footer.blit(img_circuit,(0,0))
+    #body_info.blit(img_plot,(5*bloque,0*bloque))
+
 
     if menu_state == 0:
         button(foot_buttons, 2*bloque, 2*bloque, 5*bloque, 4*bloque, color_snake_complement, "Juega", 43, color_white, action=jugar)
