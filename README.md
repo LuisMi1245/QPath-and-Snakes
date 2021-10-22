@@ -18,4 +18,9 @@ Para continuar el desarrollo sin pensar en instalación de dependencias:
  ~~~
  
  Con esto podrá ejecutar el archivo _main.py_ sin necesidad de instalar ninguna dependencia.
- (python main.py)
+ (python main.py). Es decir
+ 
+ ~~~
+ (.environment) > python main.py 
+ ~~~
+ 
