@@ -31,3 +31,5 @@ def plot_qc(quantum_circuit):
 img = Image.open('__stored_img__/plot_qcc.png')
 new_img = img.resize((200,200))
 new_img.save('__stored_img__/plot_qcc.png','png')
+
+#comentario de prueba
