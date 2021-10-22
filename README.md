@@ -1,5 +1,5 @@
 # QPath-and-Snakes
-Quantum Game
+A quantum version of Ladders and Snakes
 
 # Desarrollo
 Para continuar el desarrollo sin pensar en instalación de dependencias:
