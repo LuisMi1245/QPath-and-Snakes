@@ -33,8 +33,9 @@ def AssembleCircuit(circuit, action):
         circuit.measure((0,1),(0,1))
         state_qb = MeasureCircuit(circuit)
         circuit = StartCircuit()
-    return (circuit,state_qb)
-
+    #return (circuit, state_qb)
+    return circuit
+    
 def DrawCircuit(circuit, elements):
     circuit.draw(output = "mpl", filename = "__stored_img__/circuit.png")
     img = Image.open('__stored_img__/circuit.png')

@@ -1,9 +1,8 @@
-import sys, pygame
+import sys, os, pygame
 import numpy as np
 from surfaces import *
 from components import *
 from circuit import *
-#from plot_qc import *
 
 def jugar(): 
     print("hola")
@@ -38,17 +37,16 @@ posx = 2*bloque
 posy = 19*bloque
 
 #Circuito imagen
-iniciar_circuito = StartCircuit()
-AssembleCircuit(iniciar_circuito, 'Rx')
-DrawCircuit(iniciar_circuito,1)
+qc_circuit = StartCircuit()
+qc_circuit = AssembleCircuit(qc_circuit, 'Rx')
+DrawCircuit(qc_circuit, 1)
 img_circuit = pygame.image.load("__stored_img__/circuit.png")
 
 #Grafico
-#plot_qc(iniciar_circuito)
+plot_qc(qc_circuit)
 
-#img_plot = pygame.image.load("__stored_img__/plot_qcc.png")
+img_plot = pygame.image.load("__stored_img__/plot_qcc.png")
 
-#imagen = pygame.image.load("assets/img/einstein.jpg")
 
 #Ciclo que mantiene la ejecución del juego
 while True:
@@ -56,28 +54,36 @@ while True:
     #Ciclo (seguramente asíncrono) que verifica el evento de presionar el botón de cerrar ventana y dispara una orden
     for event in pygame.event.get():
         #print(event)
-        if event.type == pygame.QUIT: sys.exit() #Le ordena al sistema a cerrar la ventana
+        if event.type == pygame.QUIT:
+            os.remove("__stored_img__/circuit.png")
+            os.remove("__stored_img__/plot_qcc.png") 
+            sys.exit() #Le ordena al sistema a cerrar la ventana
     
 
     #Borra la pantalla y la pinta de blanco en cada frame
     screen.fill(color_white)
     
-    head.blit(head_text, (16*bloque,0))
-
-    #body_info.blit(imagen, (2*bloque, 2*bloque))
-    #body_tablero.fill(color_red)
-    #body_info.fill(color_purple)
-    foot_circuit.fill(color_snake)
-    foot_buttons.fill(color_snake)
+    head.blit(header_logo, rect_header_logo)
+    #head.fill(color_orange)
+    body_tablero.fill(color_snake_complement)
+    foot_buttons.fill(color_orange)
+    foot_circuit.fill(color_orange)
+    pygame.draw.rect(body_info, color_green, (0, 0, 22*bloque, 20*bloque), border_top_left_radius=10)
+    #foot_buttons.fill(color_orange)
     footer.blit(img_circuit,(0,0))
-    #body_info.blit(img_plot,(5*bloque,0*bloque))
+    body_info.blit(img_plot,(11*bloque,0*bloque))
 
 
     if menu_state == 0:
-        button(foot_buttons, 2*bloque, 2*bloque, 5*bloque, 4*bloque, color_snake_complement, "Juega", 43, color_white, action=jugar)
-        button(foot_buttons, 9*bloque, 2*bloque, 5*bloque, 4*bloque, color_snake_complement, "Salir", 43, color_white, action=salir)
+        button(foot_buttons, 2*bloque, 2*bloque, 8*bloque, 4*bloque, color_snake_complement, "Iniciar", 43, color_white, action=jugar)
+        button(foot_buttons, 12*bloque, 2*bloque, 8*bloque, 4*bloque, color_snake_complement, "Salir", 43, color_white, action=salir)
+        
+        cuadricula(4*bloque, 0*bloque, 4*bloque, 4*bloque, (5,7), body_tablero, borde=10)
+        red_celda = cuadricula(0, 0, 4*bloque, 4*bloque, (5,1), body_tablero, color_red)
+        green_celda = cuadricula(32*bloque, 0, 4*bloque, 4*bloque, (5,1), body_tablero, color_green)
+        #print(green_celda[0][0])
     elif menu_state == 1:
-        button(foot_buttons, 2*bloque, 2*bloque, 12*bloque, 4*bloque, color_snake_complement, "Superponer Dado", 43, color_white, action=superponer_dado())
+        button(foot_buttons, 2*bloque, 2*bloque, 18*bloque, 4*bloque, color_snake_complement, "Superponer estados del Dado", 43, color_white, action=superponer_dado())
 
     #pygame.draw.circle(surface, color, centro, radio, ancho_borde)
     #pygame.draw.circle(screen, color_red, (posx+ 0.5*bloque, posy+ 0.5*bloque), bloque*0.5),
