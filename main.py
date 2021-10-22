@@ -3,16 +3,48 @@ import numpy as np
 from surfaces import *
 from components import *
 from circuit import *
+from Dado import *
 
 def jugar(): 
-    print("hola")
     global menu_state
     menu_state = 1
-
+    
 def salir(): sys.exit()
 
 def superponer_dado():
-    print("Definan esta función")
+    global resultado_decimal
+    global img_dado_res
+    global num_movimientos
+
+    #dibujar fichas
+    #pygame.draw.circle(screen, color_red, (posx+ 0.5*bloque, posy+ 0.5*bloque), bloque*0.5),
+    #pygame.draw.circle(screen, color_white, (posx + 2.5*bloque, posy + 2.5*bloque), bloque*0.5)
+
+    resultado_binario = dice(qc_dado) 
+    resultado_decimal = binario_a_decimal(resultado_binario)
+    
+    num_movimientos +=1
+    
+    img_dado_res = pygame.image.load("__stored_img__/im_dado.png")
+    
+    #mover fichas
+    #mover_fichas()
+
+def binario_a_decimal(numero_binario):
+	numero_decimal = 0 
+
+	for posicion, digito_string in enumerate(numero_binario[::-1]):
+		numero_decimal += int(digito_string) * 2 ** posicion
+
+	return numero_decimal
+
+
+def draw_pointer(player, x, y):
+    if player == 1:
+        pygame.draw.circle(body_tablero, color_purple, (x, y), 1*bloque, 0)
+    else:
+        pygame.draw.circle(body_tablero, color_black, (x, y), 1*bloque, 0)
+
 
 #Inicializa los módulos de pygame
 pygame.init()
@@ -32,9 +64,10 @@ pygame.display.set_caption("QPath & Snakes v0.1")
 
 #Variable Global que controla el estado del menú
 menu_state = 0
-
-posx = 2*bloque
-posy = 19*bloque
+num_movimientos = 0
+resultado_decimal = 0
+pointer_location_1 = 0
+pointer_location_2 = 0
 
 #Circuito imagen
 qc_circuit = StartCircuit()
@@ -47,6 +80,7 @@ plot_qc(qc_circuit)
 
 img_plot = pygame.image.load("__stored_img__/plot_qcc.png")
 
+img_dado_res = pygame.image.load('assets/img/img_dados/6.png')
 
 #Ciclo que mantiene la ejecución del juego
 while True:
@@ -72,22 +106,26 @@ while True:
     #foot_buttons.fill(color_orange)
     footer.blit(img_circuit,(0,0))
     body_info.blit(img_plot,(11*bloque,0*bloque))
+    
 
-
+    cuadricula(4*bloque, 0*bloque, 4*bloque, 4*bloque, (5,7), body_tablero, borde=10)
+    red_celda = cuadricula(0, 0, 4*bloque, 4*bloque, (5,1), body_tablero, color_red)
+    green_celda = cuadricula(32*bloque, 0, 4*bloque, 4*bloque, (5,1), body_tablero, color_green)
+    
     if menu_state == 0:
         button(foot_buttons, 2*bloque, 2*bloque, 8*bloque, 4*bloque, color_snake_complement, "Iniciar", 43, color_white, action=jugar)
         button(foot_buttons, 12*bloque, 2*bloque, 8*bloque, 4*bloque, color_snake_complement, "Salir", 43, color_white, action=salir)
-        
-        cuadricula(4*bloque, 0*bloque, 4*bloque, 4*bloque, (5,7), body_tablero, borde=10)
-        red_celda = cuadricula(0, 0, 4*bloque, 4*bloque, (5,1), body_tablero, color_red)
-        green_celda = cuadricula(32*bloque, 0, 4*bloque, 4*bloque, (5,1), body_tablero, color_green)
-        #print(green_celda[0][0])
     elif menu_state == 1:
-        button(foot_buttons, 2*bloque, 2*bloque, 18*bloque, 4*bloque, color_snake_complement, "Superponer estados del Dado", 43, color_white, action=superponer_dado())
+        if num_movimientos % 2 == 0:
+            button(foot_buttons, 2*bloque, 2*bloque, 18*bloque, 4*bloque, color_snake_complement, "Player_1: Superponer dado", 43, color_white, action=superponer_dado)
+            #body_info.blit(img_dado_res,(0,0))
+        else:
+            button(foot_buttons, 2*bloque, 2*bloque, 18*bloque, 4*bloque, color_snake_complement, "Player_2: Superponer dado", 43, color_white, action=superponer_dado)
+            #body_info.blit(img_dado_res,(0,0))
+        body_info.blit(img_dado_res,(0,0))
+        draw_pointer(1, 1*bloque, 1*bloque)
+        draw_pointer(2, 3*bloque, 3*bloque)
 
-    #pygame.draw.circle(surface, color, centro, radio, ancho_borde)
-    #pygame.draw.circle(screen, color_red, (posx+ 0.5*bloque, posy+ 0.5*bloque), bloque*0.5),
-    #pygame.draw.circle(screen, color_white, (posx + 2.5*bloque, posy + 2.5*bloque), bloque*0.5)
 
     #Hace que todo lo que se dibuje en la superficie en cada frame se vuelva visible
     pygame.display.flip()
