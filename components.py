@@ -88,10 +88,14 @@ def text_objects(text, size, font_path, color=(0,0,0)):
 #h  = alto de la celda (float)
 #dimension = Tupla que contiene la cantidad de filas y columnas (row, column)
 #surface = superficie donde desea ubicarles
-def cuadricula(xi, yi, b, h, dimension, surface, color=np.array((255, 255, 255)), borde=0):
+def cuadricula(xi, yi, b, h, dimension, surface, color, rand_color=False, borde=0):
     rows, columns = dimension[0], dimension[1]
     celdas = [[0 for col in range(0,columns)] for row in range(0,rows)]
     for i in range(0, rows):
         for j in range(0, columns):
-            celdas[i][j] = pygame.draw.rect(surface, color, (xi+b*j,yi+h*i,b,h), borde)
+            if rand_color:
+                celdas[i][j] = pygame.draw.rect(surface, color[i+j], (xi+b*j,yi+h*i,b,h), borde)
+            else:
+                celdas[i][j] = pygame.draw.rect(surface, color, (xi+b*j,yi+h*i,b,h), borde)
+                
     return celdas
