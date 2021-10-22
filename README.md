@@ -9,13 +9,18 @@ Para continuar el desarrollo sin pensar en instalación de dependencias:
  4. Escriba el comando:
  ### En linux
  ~~~
- > source env/bin/activate 
+ > source .environment/bin/activate 
  ~~~
  
  ### En Windows
  ~~~
- > env/bin/activate 
+ > .environment/bin/activate 
  ~~~
  
  Con esto podrá ejecutar el archivo _main.py_ sin necesidad de instalar ninguna dependencia.
- (python main.py)
+ (python main.py). Es decir
+ 
+ ~~~
+ (.environment) > python main.py 
+ ~~~
+ 
