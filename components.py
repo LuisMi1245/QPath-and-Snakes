@@ -47,9 +47,9 @@ def plot_qc(quantum_circuit):
 # action = acción que genera el botón al ser presionado
 
 def button(surface, x, y, b, h, btn_color, msg, msg_size, msg_color=(0,0,0), font_path="assets/fonts/Woodstamp.otf", action=None):
-    
     mouse_x, mouse_y = pygame.mouse.get_pos() #obtiene la posición del puntero en la ventana. Tupla (x,y)
-    click = pygame.mouse.get_pressed() #captura el evento de presionar click
+    #click = pygame.mouse.get_pressed() #captura el evento de presionar click
+    
     abs_pos_surface_x, abs_pos_surface_y = pygame.Surface.get_abs_offset(surface) #Obtiene la posición absoluta de una "surface" con respecto a la surface de primer nivel 
     abs_pos_bttn_x, abs_pos_bttn_y = abs_pos_surface_x + x, abs_pos_surface_y + y #Obtiene la posición absoluta de un botón con respecto a la superficie de primer nivel
 
@@ -57,8 +57,9 @@ def button(surface, x, y, b, h, btn_color, msg, msg_size, msg_color=(0,0,0), fon
         #Si el puntero está sobre el botón, imprime forma del botón con hover
         pygame.draw.rect(surface, btn_color+np.array((30,30,30)), (x,y,b,h), border_radius=5)
         #Si presionó el click, ejecuta action()
-        if click[0] == 1 and action is not None:
-            action() 
+        for event in pygame.event.get():
+            if event.type == pygame.MOUSEBUTTONDOWN and action is not None:
+                action()
     else:
         #Si el puntero está fuera del área del botón, imprime forma del botón sin hover
         pygame.draw.rect(surface, btn_color, (x,y,b,h), border_radius=5)
