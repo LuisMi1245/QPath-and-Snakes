@@ -24,5 +24,5 @@ Para continuar el desarrollo sin pensar en instalación de dependencias:
  (.environment) > python main.py 
  ~~~
  
-# Versión Inicial 
+# Versión Inicial v0.1
 ![Qpath Snake_v0 1](https://user-images.githubusercontent.com/35621197/138520900-af264bcb-cef8-429e-bb3d-608b6f04eca9.png)
